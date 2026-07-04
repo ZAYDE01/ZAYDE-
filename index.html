@@ -2036,48 +2036,8 @@
       function crearCarrusel(carousel) {
         const suiteNum = carousel.dataset.suite;
         const count = parseInt(carousel.dataset.count, 10) || 1;
-        const track = carousel.querySelector('.suite-carousel__track');
-        const counter = carousel.querySelector('.suite-carousel__counter');
-        const prevBtn = carousel.querySelector('.suite-carousel__arrow--prev');
-        const nextBtn = carousel.querySelector('.suite-carousel__arrow--next');
-        let index = 0;
-        let arrastrando = false;
-        let inicioX = 0;
-        let deltaX = 0;
-
-        track.innerHTML = '';
-        for (let i = 1; i <= count; i++) {
-          const img = document.createElement('img');
-          img.src = `media/suites/suite-${suiteNum}/${i}.jpg`;
-          img.alt = `Suite ${suiteNum} — foto ${i}`;
-          img.loading = 'lazy';
-          img.draggable = false;
-          track.appendChild(img);
-        }
-
-        function posicion(conTransicion) {
-          const ancho = carousel.clientWidth || 1;
-          const porcentajeArrastre = (deltaX / ancho) * 100;
-          track.style.transition = conTransicion ? 'transform 0.3s ease' : 'none';
-          track.style.transform = `translateX(${-(index * 100) + porcentajeArrastre}%)`;
-        }
-
-        function update() {
-          deltaX = 0;
-          posicion(true);
-          if (counter) counter.textContent = `${index + 1} / ${count}`;
-        }
-
-        // Se usa onclick (en vez de addEventListener) para que, si el
-        // carrusel se regenera (ficha de detalle), no se acumulen
-        // listeners duplicados sobre las mismas flechas.
-        if (prevBtn) prevBtn.onclick = () => { index = (index - 1 + count) % count; update(); };
-        if (nextBtn) nextBtn.onclick = () => { index = (index + 1) % count; update(); };
-
-        // Deslizar con el dedo (o el mouse) para cambiar de foto, en
-        // vez de depender de botones. Funciona en todos los carruseles;
-        // en la ficha de detalle es la única forma de navegar las fotos.
-        track.onpointerdown = (e) => {
+       track.onpointerdown = (e) => {
+          if (e.pointerType === 'touch') return; // el touch se maneja aparte, abajo
           arrastrando = true;
           inicioX = e.clientX;
           deltaX = 0;
@@ -2085,7 +2045,7 @@
           posicion(false);
         };
         track.onpointermove = (e) => {
-          if (!arrastrando) return;
+          if (e.pointerType === 'touch' || !arrastrando) return;
           deltaX = e.clientX - inicioX;
           posicion(false);
         };
@@ -2100,6 +2060,48 @@
         track.onpointerup = terminarArrastre;
         track.onpointercancel = terminarArrastre;
         track.onpointerleave = terminarArrastre;
+
+        // --- Swipe táctil con bloqueo de eje (para que no choque con el scroll) ---
+        let inicioY = 0;
+        let ejeBloqueado = null; // 'x' (deslizando fotos) | 'y' (scroll normal) | null
+
+        track.addEventListener('touchstart', (e) => {
+          const t = e.touches[0];
+          arrastrando = true;
+          inicioX = t.clientX;
+          inicioY = t.clientY;
+          deltaX = 0;
+          ejeBloqueado = null;
+        }, { passive: true });
+
+        track.addEventListener('touchmove', (e) => {
+          if (!arrastrando) return;
+          const t = e.touches[0];
+          const dx = t.clientX - inicioX;
+          const dy = t.clientY - inicioY;
+
+          if (!ejeBloqueado) {
+            if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+            ejeBloqueado = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+          }
+          if (ejeBloqueado === 'x') {
+            e.preventDefault(); // evita que la página haga scroll mientras deslizas fotos
+            deltaX = dx;
+            posicion(false);
+          }
+          // si el eje es 'y', no hacemos nada y dejamos que la página haga scroll normal
+        }, { passive: false });
+
+        track.addEventListener('touchend', () => {
+          if (ejeBloqueado === 'x') terminarArrastre();
+          arrastrando = false;
+          ejeBloqueado = null;
+        }, { passive: true });
+
+        track.addEventListener('touchcancel', () => {
+          arrastrando = false;
+          ejeBloqueado = null;
+        }, { passive: true });
 
         update();
       }
