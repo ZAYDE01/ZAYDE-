@@ -769,11 +769,16 @@
       border-bottom: 1px solid var(--niebla);
     }
     .suite-detail-close {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
       width: 38px; height: 38px; border-radius: 50%; border: none; cursor: pointer;
       background: var(--hueso); color: var(--pino-950); font-size: 1.2rem;
       display: flex; align-items: center; justify-content: center;
     }
+    }
     .suite-detail-close:hover { background: var(--niebla); }
+    .suite-detail-carousel .suite-carousel__arrow { display: flex !important; }
     .suite-detail-carousel { aspect-ratio: 4 / 3; }
     /* En móvil la ficha de detalle se navega solo deslizando (más
        cómodo con el dedo); en escritorio sí mostramos las flechas,
