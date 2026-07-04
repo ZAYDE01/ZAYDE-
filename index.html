@@ -764,7 +764,7 @@
     .suite-detail-inner { max-width: 640px; margin: 0 auto; min-height: 100%; background: #fff; }
     .suite-detail-topbar {
       position: sticky; top: 0; z-index: 3;
-      display: flex; align-items: center; justify-content: center; padding: 0.7rem 1rem;
+      display: flex; align-items: center; justify-content: center; padding: 1rem 1.2rem;
       background: rgba(255,255,255,0.92); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--niebla);
     }
@@ -784,28 +784,30 @@
        cómodo con el dedo); en escritorio sí mostramos las flechas,
        igual que en las tarjetas del catálogo. */
     }
-    .suite-detail-body { padding: 1.4rem 1.4rem 6.5rem; }
+    .suite-detail-body { padding: 2rem 1.6rem 7rem; }
     .suite-detail-head {
-      display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
-      margin-bottom: 0.5rem;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+      margin-bottom: 0.9rem;
     }
     .suite-detail-head h2 {
-      font-family: var(--font-display); text-transform: uppercase; font-size: 1.5rem;
-      color: var(--pino-950); margin: 0;
+      font-family: var(--font-display); text-transform: uppercase; font-size: 1.6rem;
+      color: var(--pino-950); margin: 0; line-height: 1.2;
     }
     .suite-detail-price {
       font-family: var(--font-display); font-size: 2.2rem;
-      color: var(--ascua-dark); letter-spacing: 0.01em; margin: 0.65rem 0 1rem; line-height: 1;
+      color: var(--ascua-dark); letter-spacing: 0.01em; margin: 0 0 1.5rem; line-height: 1;
     }
     .suite-detail-price span {
       font-family: var(--font-data); font-size: 0.75rem; font-weight: 700;
       color: var(--musgo); text-transform: uppercase; letter-spacing: 0.04em;
-      display: block; margin-top: 0.45rem;
+      display: block; margin-top: 0.6rem;
     }
-    .suite-detail-desc { color: var(--carbon); line-height: 1.7; margin-bottom: 1rem; }
+    .suite-detail-desc { color: var(--carbon); line-height: 1.8; margin-bottom: 1.5rem; }
     .suite-detail-extra {
       display: inline-block; font-size: 0.85rem; color: var(--ascua-dark);
-      background: rgba(226,85,31,0.08); padding: 0.5rem 0.9rem; border-radius: 8px;
+      background: rgba(226,85,31,0.08); padding: 0.7rem 1.1rem; border-radius: 8px;
+      margin-top: 0.3rem;
+    }
     }
     .suite-detail-cta {
       position: fixed; left: 0; right: 0; bottom: 0; z-index: 3;
