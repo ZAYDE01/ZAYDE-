@@ -764,7 +764,7 @@
     .suite-detail-inner { max-width: 640px; margin: 0 auto; min-height: 100%; background: #fff; }
     .suite-detail-topbar {
       position: sticky; top: 0; z-index: 3;
-      display: flex; align-items: center; padding: 0.7rem 1rem;
+      display: flex; align-items: center; justify-content: center; padding: 0.7rem 1rem;
       background: rgba(255,255,255,0.92); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--niebla);
     }
@@ -778,9 +778,6 @@
     /* En móvil la ficha de detalle se navega solo deslizando (más
        cómodo con el dedo); en escritorio sí mostramos las flechas,
        igual que en las tarjetas del catálogo. */
-    .suite-detail-carousel .suite-carousel__arrow { display: none; }
-    @media (min-width: 769px) {
-      .suite-detail-carousel .suite-carousel__arrow { display: flex; }
     }
     .suite-detail-body { padding: 1.4rem 1.4rem 6.5rem; }
     .suite-detail-head {
@@ -862,7 +859,7 @@
       .suites-catalog-grid .suite-card__price { font-size: 0.85rem; }
       .suites-catalog-grid .suite-photo-card__desc,
       .suites-catalog-grid .suite-card__extra { display: none; }
-      .suites-catalog-grid .suite-carousel__arrow { width: 26px; height: 26px; font-size: 1rem; }
+      .suites-catalog-grid .suite-carousel__arrow { display: none !important; }
       .suites-catalog-grid .suite-carousel__counter { font-size: 0.6rem; padding: 0.1rem 0.4rem; }
     }
 
