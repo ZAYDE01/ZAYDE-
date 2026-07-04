@@ -850,7 +850,15 @@
       .suites-catalog-grid .suite-card__head { flex-wrap: wrap; }
       .suites-catalog-grid .suite-card__head h4 { font-size: 1rem; }
       .suites-catalog-grid .badge { font-size: 0.62rem; padding: 0.15rem 0.5rem; }
-      .suites-catalog-grid .suite-plus-btn { width: 26px; height: 26px; font-size: 1rem; }
+      .suites-catalog-grid .suite-plus-btn {
+  width: 26px; height: 26px;
+  font-size: 0; /* oculta el "+" */
+  pointer-events: none; /* el click "pasa" al recuadro completo */
+}
+.suites-catalog-grid .suite-plus-btn::after {
+  content: "👁";
+  font-size: 0.9rem;
+}
       .suites-catalog-grid .suite-card__price { font-size: 0.85rem; }
       .suites-catalog-grid .suite-photo-card__desc,
       .suites-catalog-grid .suite-card__extra { display: none; }
